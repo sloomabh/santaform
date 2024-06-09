@@ -1,0 +1,63 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Glitch!</title>
+    <meta name="description" content="A cool thing made with Glitch" />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/client.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>A letter to Santa</h1>
+      </header>
+
+      <main>
+        <div id="error-container" class="error-message"></div>
+
+        <form method="post" id="santa-form">
+          <div>
+            <label for="userid" class="bold">Who are you?</label>
+            <input
+              id="userid"
+              name="userid"
+              type="text"
+              placeholder="charlie.brown"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="wish" class="bold"
+              >What do you want for Christmas?</label
+            >
+            <textarea
+              id="wish"
+              name="wish"
+              rows="10"
+              cols="45"
+              maxlength="100"
+              placeholder="Gifts!"
+              required
+            ></textarea>
+          </div>
+
+          <div>
+            <button type="submit" id="submit-letter">Send</button>
+          </div>
+        </form>
+      </main>
+
+      <footer>Made with <a href="https://glitch.com">Glitch</a>!</footer>
+    </div>
+
+    <div
+      class="glitchButton"
+      style="position: fixed; top: 20px; right: 20px"
+    ></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>
