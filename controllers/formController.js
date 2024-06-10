@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fetchUserData = require("../utils/fetchUserData");
+const fetchUserData = require("../models/UserProfile");
 const calculateAge = require("../utils/calculateAge");
 const handleCustomError = require("../utils/errorHandler");
 const { addPendingRequest } = require("../utils/fileHandler");

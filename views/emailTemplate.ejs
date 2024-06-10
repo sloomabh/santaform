@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Pending Requests for Santa</h1>
+      </div>
+      <div class="content">
+        <% pendingRequests.forEach(request => { %>
+        <p><strong>Child username:</strong> <%= request.username %></p>
+        <p><strong>Child's address:</strong> <%= request.address %></p>
+        <p><strong>Request:</strong> <%= request.wish %></p>
+        <hr />
+        <% }) %>
+      </div>
+      <div class="footer">
+        <p>This is an automated email, please do not reply.</p>
+      </div>
+    </div>
+  </body>
+</html>
