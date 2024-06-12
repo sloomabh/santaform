@@ -1,67 +1,89 @@
-# IMPORTANT! READ before starting
+# Santa App
 
-salim test By default for anonymous users (non logged in), your code and app will only remain on glitch.com for 5 days.
-In order to not lose your challenge, please create a glitch.com account and log in to glitch.com before proceeding.
+The Santa App is a Node.js application built on Express that allows users to submit their Christmas wishes to Santa. It handles user data, validates age, stores pending requests, and sends email notifications using Node.js modules and third-party packages.
 
-The following README contains instructions to guide you through the coding challenge, please read them carefully.
+## Table of Contents
 
-# JS coding challenge:
+- [Project Overview](#project-overview)
+- [Project Structure](#project-structure)
+- [Packages Used](#packages-used)
+- [How to Run the Project](#how-to-run-the-project)
+- [Conclusion](#conclusion)
 
-## How to create and submit your app using glitch
+## Project Overview
 
-1. **Login to glitch**: make sure you are logged in to glitch.com
+The Santa App is structured following the MVC (Model-View-Controller) architecture for better organization and separation of concerns:
 
-2. **Clone**: Go to this URL: https://glitch.com/~js-santa-app and click the `Remix your own` button to clone the code. This will copy all the code to a new, randomly generated URL (e.g. https://glitch.com/edit/#!/capable-toothpaste). This is your URL to code on, no other candidates will have this URL.
+- **Model**: Handles data logic, including fetching user data and calculating age.
+- **View**: Contains EJS templates for rendering HTML views.
+- **Controller**: Manages user requests, processes data from the model, and renders views.
 
-3. **Code**: You can edit the code directly in the Glitch editor or use your editor of choice (VSCode, Sublime, etc) and copy paste the files into Glitch. Git import and export is also available in the Tools menu on the bottom left. How you edit the code is entirely up to you, so long as your finished work is viewable at the URL created in the previous step.
+## Project Structure
 
-> **NOTE**: Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+The directory structure of the project is as follows:
+.
+├── controllers
+│ └── formController.js
+├── db
+│ └── pendingRequests.json
+├── models
+│ └── UserProfile.js
+├── public
+│ ├── client.js
+│ └── style.css
+├── utils
+│ ├── errorHandler.js
+│ ├── emailSender.js
+│ ├── fileHandler.js
+│ ├── calculateAge.js
+│ └── fetchUserData.js
+├── views
+│ ├── emailTemplate.ejs
+│ ├── error.ejs
+│ └── index.html
+├── .env
+├── package.json
+└── server.js
 
-4. **Turn in**: When you finish coding, send your URL to us so we can review your code.
+### Explanation of Directories and Files
 
-## Objectives overview:
+- **controllers/**: Contains the `formController.js` file, which handles HTTP requests, interacts with the model, and renders views.
+- **db/**: Stores `pendingRequests.json`, a JSON file used to store pending wish requests.
+- **models/**: Includes `UserProfile.js` for handling user data operations, including fetching data from external APIs.
+- **public/**: Contains static files like `client.js` and `style.css` for client-side functionality and styling.
+- **utils/**: Houses utility functions like error handling, email sending, file handling, and age calculation.
+- **views/**: Holds EJS templates (`emailTemplate.ejs`, `error.ejs`, `index.html`) for rendering HTML views.
 
-The webapp should display a form for children to enter their id and a free text message to santa.
+## Packages Used
 
-When submitting the form, the server should check:
+### EJS (Embedded JavaScript templates)
 
-1.  that the child is registered
-2.  that the child is less than 10 years old.
-    To this purpose, the server can fetch user and profiles data in JSON format from:
+- **Purpose**: EJS is used as the view engine to render dynamic HTML pages with data from the server.
+- **Usage**: Templates like `emailTemplate.ejs` and `error.ejs` utilize EJS syntax to inject data into HTML.
 
-- https://raw.githubusercontent.com/alj-devops/santa-data/master/userProfiles.json
-- https://raw.githubusercontent.com/alj-devops/santa-data/master/users.json
+### Node-fetch
 
-If the child is not registered (no match for the user id) or more than 10years old, the webapp should display a basic error page with an error message explaining the problem.\
-If the child is registered and less than 10 years old, the server should show a page indicating that the request has been received.
+- **Purpose**: Node-fetch is employed to make HTTP requests to external APIs (GitHub URLs) for fetching user profiles and user data.
+- **Usage**: `UserProfile.js` module uses `node-fetch` to retrieve JSON data asynchronously.
 
-Every 15seconds, the server should send an email with information on all pending (not yet sent) requests including:
+### Nodemailer
 
-- child username (eg. charlie.brown)
-- child's address (eg. 219-1130, Ikanikeisaiganaibaai, Musashino-shi, Tokyo)
-- request free text as was input in the form
+- **Purpose**: Nodemailer facilitates email sending functionality within the application.
+- **Usage**: `emailSender.js` uses Nodemailer to compose and send emails with pending requests to Santa's email address.
 
-Email sender should be set as do_not_reply@northpole.com, and sent to santa@northpole.com
+### Jest and Supertest
 
-## Tips and detailed instructions:
+- **Purpose**: Jest is a testing framework, and Supertest is used for HTTP assertions during testing.
+- **Usage**: `formController.test.js` file employs Jest and Supertest to test form submission routes and verify expected behaviors.
 
-- Somebody started to work on the app, but left it unfinished and did not use any modern technology. We added React for you to have a clean base but feel free to use any other technology you might prefer.
-- The UI and UX of the application for this challenge is not the priority. The pages/email do not need to look good, as long as they convey the information effectively.
-- You should fetch the JSON data at every form submission (consider it as an API).
-- For the sake of the challenge, you can keep the requests in-memory only.
-- You are encouraged to select and use npm packages as needed (you can add packages by editing package.json, or using `npm install` from the glitch console).
-- To get an smtp server for emails, go to https://ethereal.email/ and click "Create Ethereal Account".\
-  This will give you an account (take note of your username and pwd if you need to re-logon later) and smtp server (actual emails do not get delivered).\
-  Go to https://ethereal.email/messages to see the emails that have been received by the smtp server.
+## How to Run the Project
 
-## Some things we will look for in your submission
+1. **Clone the Repository**: `https://github.com/sloomabh/santaform`
+2. **Install Dependencies by runing  this command**: `npm install`
+3. **Set Environment Variables**: Create a `.env` file with `ETHEREAL_USER` and `ETHEREAL_PASS` for Nodemailer setup.
+4. **Start the Server**: `npm start`
+5. **Access the App**: Open `http://localhost:3000` in your web browser.
 
-- Code quality (readability, use of modern syntax...)
-- Does the app work as designed (cf. objectives overview)
-- App architecture (folder structure, configuration management...)
-- Documentation (why did you choose to change or add a package...)
+## Conclusion
 
-## Tips on usage of glitch
-
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
-When your app is running, you can access logs and console using the "Tools" button at the bottom left.
+The Santa App demonstrates the implementation of MVC architecture in a Node.js application, enhancing code modularity, maintainability, and scalability. It effectively utilizes various Node.js modules and third-party packages to achieve its functionality, making it a robust solution for managing Christmas wish submissions.
